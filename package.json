@@ -1,0 +1,15 @@
+{
+  "name": "mq-memory",
+  "version": "0.0.0",
+  "description": "Easy in-memory message queue",
+  "main": "index.js",
+  "author": "astur <astur@yandex.ru> (http://kozlov.am/)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/astur/mq-memory.git"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "license": "MIT"
+}

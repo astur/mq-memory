@@ -4,6 +4,9 @@
   "description": "Easy in-memory message queue",
   "main": "index.js",
   "author": "astur <astur@yandex.ru> (http://kozlov.am/)",
+  "scripts": {
+    "test": "eslint ."
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/astur/mq-memory.git"

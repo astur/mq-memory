@@ -1,5 +1,4 @@
 module.exports = (db, {
-    name = 'mq',
     ttl = 30000,
     tries = 10,
     insistent = false,

@@ -5,13 +5,17 @@ module.exports = (db, {
     items = null,
     strict = false,
 } = {}) => {
-    const total = () => {};
+    const store = [];
 
-    const waiting = () => {};
+    const after = (ttl = 0) => Date.now() + ttl;
 
-    const active = () => {};
+    const total = () => store.length;
 
-    const failed = () => {};
+    const waiting = () => store.filter(v => v.expires <= after() && (tries === null || tries > v.tries)).length;
+
+    const active = () => store.filter(v => v.expires > after()).length;
+
+    const failed = () => tries === null ? 0 : store.filter(v => v.expires <= after() && tries > v.tries).length;
 
     const stats = () => {};
 

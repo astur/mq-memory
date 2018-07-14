@@ -15,7 +15,7 @@ module.exports = (db, {
 
     const active = () => store.filter(v => v.expires > after()).length;
 
-    const failed = () => tries === null ? 0 : store.filter(v => v.expires <= after() && tries > v.tries).length;
+    const failed = () => tries === null ? 0 : store.filter(v => v.expires <= after() && tries <= v.tries).length;
 
     const stats = () => {};
 

@@ -5,9 +5,19 @@ module.exports = (db, {
     items = null,
     strict = false,
 } = {}) => {
-    const store = [];
-
     const after = (ttl = 0) => Date.now() + ttl;
+    const prepare = items => {
+        if([null, undefined].includes(items)) return null;
+        items = (Array.isArray(items) ? items : [items])
+            .map(item => Object.assign(
+                {data: item, created: after(), expires: 0},
+                tries === null ? {} : {tries: 0},
+            ));
+        if(!items.length) return null;
+        return items;
+    };
+
+    const store = prepare(items) || [];
 
     const total = () => store.length;
 

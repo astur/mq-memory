@@ -1,4 +1,4 @@
-module.exports = (db, {
+module.exports = ({
     ttl = 30000,
     tries = 10,
     insistent = false,

@@ -16,6 +16,10 @@ test.todo('null-trie');
 test.todo('insistent');
 test.todo('size tries');
 test.todo('size no-tries');
-test.todo('init items');
+test('init items', t => {
+    const q = mq({items: ['test1', 'test2']});
+    t.is(q.total(), 2);
+    t.is(q.waiting(), 2);
+});
 test.todo('queue options');
 test.todo('get strict');

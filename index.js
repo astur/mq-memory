@@ -41,7 +41,11 @@ module.exports = ({
         return st;
     };
 
-    const add = () => {};
+    const add = items => {
+        items = prepare(items);
+        store.push(...items);
+        return items.length;
+    };
 
     const get = () => {};
 

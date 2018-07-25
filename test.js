@@ -1,4 +1,5 @@
 const test = require('ava');
+const delay = require('delay');
 const mq = require('.');
 
 test('add', t => {
@@ -28,6 +29,17 @@ test('get', t => {
         ['test1', 'test2', 'test3', null],
     );
     t.is(q.total(), 3);
+});
+
+test('expiring', async t => {
+    const q = mq();
+    q.add(['test1', 'test2', 'test3']);
+    t.is(q.get(1).data, 'test1');
+    await delay(10);
+    t.is(q.get().data, 'test2');
+    t.is(q.get().data, 'test3');
+    t.is(q.get().data, 'test1');
+    t.is(q.get().data, null);
 });
 
 test.todo('ack');

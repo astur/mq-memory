@@ -51,10 +51,12 @@ module.exports = ({
     const get = (t = ttl) => {
         const taskId = store.findIndex(v => v.expires <= after() && (tries === null || tries > v.tries));
         if(taskId === -1) return null;
-        store[taskId].tag = id();
-        store[taskId].expires = after(t);
-        if(tries !== null) store[taskId].tries++;
-        return store[taskId];
+        const task = store.splice(taskId, 1)[0];
+        task.tag = id();
+        task.expires = after(t);
+        if(tries !== null) task.tries++;
+        store.push(task);
+        return task;
     };
 
     const ack = () => {};

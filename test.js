@@ -1,11 +1,6 @@
 const test = require('ava');
 const mq = require('.');
 
-test('stub', t => {
-    t.pass();
-    t.is(mq, mq);
-});
-
 test('add', t => {
     const q = mq();
     t.is(q.add(), 0);

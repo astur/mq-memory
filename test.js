@@ -19,7 +19,22 @@ test('add', t => {
     t.is(q.waiting(), 3);
 });
 
-test.todo('get');
+test('get', t => {
+    const q = mq();
+    q.add('test1');
+    q.add(['test2', 'test3']);
+    t.deepEqual(
+        [
+            q.get(),
+            q.get(),
+            q.get(),
+            q.get(),
+        ].map(v => v === null ? v : v.data),
+        ['test1', 'test2', 'test3', null],
+    );
+    t.is(q.total(), 3);
+});
+
 test.todo('ack');
 test.todo('ping');
 test.todo('tries');

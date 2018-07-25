@@ -6,7 +6,19 @@ test('stub', t => {
     t.is(mq, mq);
 });
 
-test.todo('add');
+test('add', t => {
+    const q = mq();
+    t.is(q.add(), 0);
+    t.is(q.add([]), 0);
+    t.is(q.add(null), 0);
+    t.is(q.total(), 0);
+    t.is(q.add('test'), 1);
+    t.is(q.total(), 1);
+    t.is(q.add(['test2', 'test3']), 2);
+    t.is(q.total(), 3);
+    t.is(q.waiting(), 3);
+});
+
 test.todo('get');
 test.todo('ack');
 test.todo('ping');

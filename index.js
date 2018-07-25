@@ -6,6 +6,7 @@ module.exports = ({
     strict = false,
 } = {}) => {
     const after = (ttl = 0) => Date.now() + ttl;
+    const id = () => require('crypto').randomBytes(16).toString('hex');
     const prepare = items => {
         if([null, undefined].includes(items)) return [];
         items = (Array.isArray(items) ? items : [items])
@@ -47,7 +48,14 @@ module.exports = ({
         return items.length;
     };
 
-    const get = () => {};
+    const get = (t = ttl) => {
+        const taskId = store.findIndex(v => v.expires <= after() && (tries === null || tries > v.tries));
+        if(taskId === -1) return null;
+        store[taskId].tag = id();
+        store[taskId].expires = after(t);
+        if(tries !== null) store[taskId].tries++;
+        return store[taskId];
+    };
 
     const ack = () => {};
 

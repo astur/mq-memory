@@ -39,7 +39,7 @@ test('expiring', async t => {
     t.is(q.get().data, 'test2');
     t.is(q.get().data, 'test3');
     t.is(q.get().data, 'test1');
-    t.is(q.get().data, null);
+    t.is(q.get(), null);
 });
 
 test.todo('ack');

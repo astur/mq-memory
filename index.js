@@ -63,7 +63,7 @@ module.exports = ({
         task.tag = id();
         task.expires = after(t);
         if(tries !== null) task.tries++;
-        store.push(task);
+        store[insistent ? 'unshift' : 'push'](task);
         return task;
     };
 

@@ -47,7 +47,14 @@ test.todo('ping');
 test.todo('tries');
 test.todo('ttl');
 test.todo('null-trie');
-test.todo('insistent');
+
+test('insistent', async t => {
+    const q = mq({insistent: true});
+    q.add(['test1', 'test2']);
+    t.is(q.get(1).data, 'test1');
+    await delay(10);
+    t.is(q.get().data, 'test1');
+});
 
 test('size tries', async t => {
     const q = mq({tries: 1});

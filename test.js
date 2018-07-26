@@ -42,7 +42,20 @@ test('expiring', async t => {
     t.is(q.get(), null);
 });
 
-test.todo('ack');
+test('ack', async t => {
+    const q = mq();
+    q.add('test');
+    const msg1 = q.get(1);
+    t.is(msg1.data, 'test');
+    await delay(10);
+    t.is(q.ack(msg1.tag), null);
+    t.is(q.total(), 1);
+    const msg2 = q.get();
+    t.is(msg2.data, 'test');
+    t.is(q.ack(msg2.tag), msg2.tag);
+    t.is(q.total(), 0);
+});
+
 test.todo('ping');
 test.todo('tries');
 test.todo('ttl');

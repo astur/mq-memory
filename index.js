@@ -74,7 +74,12 @@ module.exports = ({
         return tag;
     };
 
-    const ping = () => {};
+    const ping = (tag, t = ttl) => {
+        const taskId = store.findIndex(v => v.tag === tag && v.expires > after());
+        if(taskId === -1) return null;
+        store[taskId].expires = after(t);
+        return store[taskId];
+    };
 
     return {
         add,

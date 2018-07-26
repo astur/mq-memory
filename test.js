@@ -84,7 +84,32 @@ test('ttl', async t => {
     t.is(q.get(), null);
 });
 
-test.todo('null-trie');
+test('null-tries', async t => {
+    const q = mq({tries: null});
+    q.add('test');
+    t.is(q.total(), 1);
+    q.get(1);
+    await delay(5);
+    q.get(1);
+    await delay(5);
+    q.get(1);
+    await delay(5);
+    q.get(1);
+    await delay(5);
+    q.get(1);
+    await delay(5);
+    q.get(1);
+    await delay(5);
+    q.get(1);
+    await delay(5);
+    q.get(1);
+    await delay(5);
+    q.get(1);
+    await delay(5);
+    t.is(q.get(1).tries, undefined);
+    await delay(5);
+    t.is(q.get(1).data, 'test');
+});
 
 test('insistent', async t => {
     const q = mq({insistent: true});

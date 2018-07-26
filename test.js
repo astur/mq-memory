@@ -57,7 +57,10 @@ test('init items', t => {
     t.is(q.waiting(), 2);
 });
 
-test.todo('queue options');
+test('queue options', t => {
+    const q = mq();
+    t.deepEqual(q.options, {ttl: 30000, tries: 10, insistent: false});
+});
 
 test('get strict', t => {
     const q = mq({strict: true});

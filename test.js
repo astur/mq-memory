@@ -56,7 +56,15 @@ test('ack', async t => {
     t.is(q.total(), 0);
 });
 
-test.todo('ping');
+test('ping', async t => {
+    const q = mq();
+    q.add('test');
+    const msg = q.get();
+    t.is(q.ping(msg.tag, 1).data, 'test');
+    await delay(10);
+    t.is(q.ping(msg.tag), null);
+});
+
 test.todo('tries');
 test.todo('ttl');
 test.todo('null-trie');

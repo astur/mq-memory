@@ -5,6 +5,9 @@ Easy in-memory message queue. Same tool as [mq-mongo](https://github.com/astur/m
 [![Build Status][travis-image]][travis-url]
 [![NPM version][npm-image]][npm-url]
 
+> #### Note:
+> This tool is much easier and quicker then `mq-mongo`. Use it if you have no big amount of data and if you don't need persistent queue between script starts.
+
 ## Install
 
 ```bash

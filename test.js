@@ -74,7 +74,16 @@ test('tries', async t => {
     t.is(q.total(), 1);
 });
 
-test.todo('ttl');
+test('ttl', async t => {
+    const q = mq({ttl: 10});
+    q.add('test');
+    t.is(q.total(), 1);
+    t.is(q.get().data, 'test');
+    await delay(20);
+    t.is(q.get().data, 'test');
+    t.is(q.get(), null);
+});
+
 test.todo('null-trie');
 
 test('insistent', async t => {

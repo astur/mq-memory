@@ -50,10 +50,20 @@ test.todo('null-trie');
 test.todo('insistent');
 test.todo('size tries');
 test.todo('size no-tries');
+
 test('init items', t => {
     const q = mq({items: ['test1', 'test2']});
     t.is(q.total(), 2);
     t.is(q.waiting(), 2);
 });
+
 test.todo('queue options');
-test.todo('get strict');
+
+test('get strict', t => {
+    const q = mq({strict: true});
+    q.add('test');
+    q.get();
+    const e = t.throws(() => q.get());
+    t.deepEqual(e.stats, {active: 1, failed: 0, waiting: 0});
+    t.is(e.name, 'QueueGetError');
+});

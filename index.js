@@ -68,7 +68,7 @@ module.exports = ({
     };
 
     const ack = tag => {
-        const taskId = store.findIndex(v => v.expires > after());
+        const taskId = store.findIndex(v => v.tag === tag && v.expires > after());
         if(taskId === -1) return null;
         store.splice(taskId, 1);
         return tag;

@@ -50,7 +50,15 @@ module.exports = ({
 
     const get = (t = ttl) => {
         const taskId = store.findIndex(v => v.expires <= after() && (tries === null || tries > v.tries));
-        if(taskId === -1) return null;
+        if(taskId === -1){
+            if(strict){
+                const e = new Error('Unable to get task from queue');
+                e.stats = stats();
+                e.name = 'QueueGetError';
+                throw e;
+            }
+            return null;
+        }
         const task = store.splice(taskId, 1)[0];
         task.tag = id();
         task.expires = after(t);

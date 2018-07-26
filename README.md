@@ -51,6 +51,23 @@ q.get().then(msg => {/* Do something */});
 * __`msg.tries`__ - just how many times this message was getted from queue.
 * __`msg.tag`__ - unique tag for this try (for use in `ack` and `ping`).
 
+## Example
+
+```js
+const mq = require('mq-memory');
+
+const q = mq({
+    ttl = 30000, // default message ttl
+    tries = 10,  // default tries to handle message
+});
+q.add('test');
+const msg = q.get();
+doSomethingWithData(msg.data);
+q.ack(msg.tag);
+```
+
+See tests for more complicated examples.
+
 ## License
 
 MIT

@@ -1,3 +1,5 @@
+const crypto = require('crypto');
+
 module.exports = ({
     ttl = 30000,
     tries = 10,
@@ -6,15 +8,14 @@ module.exports = ({
     strict = false,
 } = {}) => {
     const after = (ttl = 0) => Date.now() + ttl;
-    const id = () => require('crypto').randomBytes(16).toString('hex');
+    const id = () => crypto.randomBytes(16).toString('hex');
     const prepare = items => {
         if([null, undefined].includes(items)) return [];
-        items = (Array.isArray(items) ? items : [items])
+        return (Array.isArray(items) ? items : [items])
             .map(item => Object.assign(
                 {data: item, created: after(), expires: 0},
                 tries === null ? {} : {tries: 0},
             ));
-        return items;
     };
 
     const store = prepare(items);
@@ -43,9 +44,9 @@ module.exports = ({
     };
 
     const add = items => {
-        items = prepare(items);
-        store.push(...items);
-        return items.length;
+        const prepared = prepare(items);
+        store.push(...prepared);
+        return prepared.length;
     };
 
     const get = (t = ttl) => {
